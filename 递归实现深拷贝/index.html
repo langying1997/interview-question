@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>测试专用</title>
+	</head>
+	<body>
+		<script src="./递归实现深拷贝.js"></script>
+		<script type="text/javascript">
+			let obj = {
+				a: 100,
+				b: [10, 20, 30],
+				c: { x: 10 },
+				d: /^\d+$/,
+				e: 'miaolin',
+				f: function () {p = 12},
+				g: new Date()
+			};
+			
+			let obj2 = deepClone(obj)
+			console.log(obj, obj2)
+			console.log(obj.b === obj2.b)
+			console.log(obj.c === obj2.c)
+			obj2.e = '妙林'
+			console.log(obj, obj2)
+		</script>
+	</body>
+</html>
