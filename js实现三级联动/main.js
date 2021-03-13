@@ -11,7 +11,7 @@ function getData (datas) {
 	handleObj(data)
 }
 
-// 插入克隆节点函数
+// 遍历插入新节点函数
 function insertChild (target, sourceList) {
 	if (sourceList instanceof Object) {
 		for (let key in sourceList) {
@@ -23,37 +23,39 @@ function insertChild (target, sourceList) {
 	}
 }
 
+// 递归多层级嵌套时只有第一级return有效 用这个list接收地区数据
+let list = []
+
 // 封装一个递归函数寻找数据
 function getValue (sourceData, value) {
 	for (let param in sourceData) {
 		if (sourceData[param].code === value) {
+			list = sourceData[param].child
 			return sourceData[param].child
 		}
-		for (let i of sourceData[param].child) {
-			getValue(i.child, value)
-		}
+		getValue(sourceData[param].child, value)
 	}
 }
 
 function handleObj (obj) {
+	// 加载省份数据
 	insertChild(provinces, obj)
 	// 监听省份数据变化
 	provinces.onchange =  function (ev) {
+		// 城市和地区初始化
 		city.options.length = 1
 		region.options.length = 1
+		// 渲染城市数据
 		let cityList = getValue(obj, ev.target.value)
-		localStorage.setItem('citys', JSON.stringify(cityList))
 		insertChild(city, cityList)
 	}
 	
 	// 监听城市数据变化
 	city.onchange =  function (ev) {
+		// 地区数据初始化
 		region.options.length = 1
-		let regionList = JSON.parse(localStorage.getItem('citys'))
-		for (let regions of regionList) {
-			if (regions.code === ev.target.value) {
-				insertChild(region, regions.child)
-			}
-		}
+		// 渲染地区数据
+		getValue(obj, ev.target.value)
+		insertChild(region, list)
 	}
 }
