@@ -1,10 +1,11 @@
 /**
  * 主函数 专门处理数字
  * 第一个参数是需要处理的数字
- * 第二个参数是符号, 默认没有, cn是人民币符号, en是美元符号
- * 第三个参数是需要保留几位小数 默认四舍五入
+ * 第二个参数是需要保留几位小数 默认四舍五入
+ * 第三个参数是符号, 默认没有, cn是人民币符号, en是美元符号
+ * 
  * */
-function handlePrice (price, symbol, dot) {
+function handlePrice (price, dot, symbol) {
 	dot = dot || 2
 	const hPrice = new HandlePrice(price, dot)
 	hPrice.handleThree()
