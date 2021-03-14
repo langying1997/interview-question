@@ -28,3 +28,9 @@ let newPrice = handlePrice(price, null, 3)
 console.log(newPrice)
 ```
 
+输出结果
+
+```
+1,245,454.457
+```
+
